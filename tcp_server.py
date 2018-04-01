@@ -2,6 +2,11 @@
 from socket import getaddrinfo, socket, AF_UNSPEC, SOCK_STREAM, AI_PASSIVE
 from sys import argv, exit
 
+if len(argv) < 2:
+    print('err: too few args')
+    print('usage: {} port'.format(argv[0]))
+    exit(1)
+
 s = None
 
 for r in getaddrinfo(None, int(argv[1]), AF_UNSPEC, SOCK_STREAM, 0, AI_PASSIVE):
