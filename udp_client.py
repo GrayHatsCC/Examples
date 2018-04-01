@@ -1,20 +1,20 @@
 #!/usr/bin/env python
-import socket as z
-import sys
+from socket import getaddrinfo, socket, AF_UNSPEC, SOCK_DGRAM
+from sys import argv, exit
 
 s = None
 
-for r in z.getaddrinfo(sys.argv[1], int(sys.argv[2]), z.AF_UNSPEC, z.SOCK_DGRAM):
-    af, socktype, proto, canonname, sa = r
+for r in getaddrinfo(argv[1], int(argv[2]), AF_UNSPEC, SOCK_DGRAM):
+    af, socktype, proto, canonname, sockaddr = r
 
     try:
-        s = z.socket(af, socktype, proto)
+        s = socket(af, socktype, proto)
     except OSError as msg:
         s = None
         continue
 
     try:
-        s.connect(sa)
+        s.connect(sockaddr)
     except OSError as msg:
         s.close()
         s = None
@@ -24,9 +24,9 @@ for r in z.getaddrinfo(sys.argv[1], int(sys.argv[2]), z.AF_UNSPEC, z.SOCK_DGRAM)
 
 if s is None:
     print('could not open socket')
-    sys.exit(1)
+    exit(1)
 
 s.sendall(b'Hello, world')
 data = s.recv(1024)
 s.close()
-print('Received', repr(data))
+print('Received {}'.format(repr(data)))
