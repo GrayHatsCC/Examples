@@ -14,8 +14,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-from socket import getaddrinfo, socket, AF_UNSPEC, SOCK_DGRAM, AI_PASSIVE
+from socket import getaddrinfo, socket, AF_UNSPEC, SOCK_STREAM, AI_PASSIVE
 from sys import argv, exit
+from asyncio import get_event_loop
+from functools import partial
 
 if len(argv) != 2:
     print('err: needs one argument')
@@ -24,7 +26,7 @@ if len(argv) != 2:
 
 s = None
 
-for r in getaddrinfo(None, int(argv[1]), AF_UNSPEC, SOCK_DGRAM, 0, AI_PASSIVE):
+for r in getaddrinfo(None, int(argv[1]), AF_UNSPEC, SOCK_STREAM, 0, AI_PASSIVE):
     af, socktype, proto, canonname, sockaddr = r
 
     try:
@@ -32,30 +34,45 @@ for r in getaddrinfo(None, int(argv[1]), AF_UNSPEC, SOCK_DGRAM, 0, AI_PASSIVE):
     except:
         s = None
         continue
-
+	
     try:
         s.bind(sockaddr)
+        s.listen(1)
     except:
         s.close()
         s = None
         continue
-
+	
     break
 
 if s is None:
     print('err: failed to listen on port {}'.format(argv[1]))
     exit(1)
 
-while True:
-    data, addr = s.recvfrom(1024)
+loop = get_event_loop()
+
+def handle_new_data(conn, ip):
+    data = conn.recv(1024)
 
     if not data:
-        break
+        print('connection from {} has been closed'.format(ip))
+        loop.remove_reader(conn)
+        conn.close()
+        return
+
+    print('recieved "{}" from {}'.format(str(data), ip))
+    conn.send(data)
+
+def handle_new_connection():
+    conn, addr = s.accept()
 
     try:
         ip, port = addr
     except ValueError:
-        ip, port, flow, scope = addr
+        ip, port, flow, scopr = addr
 
-    print('recieved "{}" from {} on port {}'.format(str(data), ip, port))
-    s.sendto(data, addr)
+    print('new connection from {} on port {}'.format(ip, port))
+    loop.add_reader(conn, partial(handle_new_data, conn, ip))
+
+loop.add_reader(s, handle_new_connection)
+loop.run_forever()

@@ -63,7 +63,7 @@ while True:
         if not data:
             break
 
-        print('recieved "{}" from client'.format(data))
+        print('recieved "{}" from client'.format(str(data)))
         conn.send(data)
 
     print('connection from {} has been closed'.format(ip))
