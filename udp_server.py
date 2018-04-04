@@ -57,5 +57,5 @@ while True:
     except ValueError:
         ip, port, flow, scope = addr
 
-    print('recieved "{}" from {} on port {}'.format(str(data), ip, port))
+    print('recieved "{}" from {} on port {}'.format(data.decode("utf-8"), ip, port))
     s.sendto(data, addr)

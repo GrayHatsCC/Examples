@@ -60,7 +60,7 @@ def handle_new_data(conn, ip):
         conn.close()
         return
 
-    print('recieved "{}" from {}'.format(str(data), ip))
+    print('recieved "{}" from {}'.format(data.decode("utf-8"), ip))
     conn.send(data)
 
 def handle_new_connection():
