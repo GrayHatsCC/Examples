@@ -14,13 +14,13 @@ for r in getaddrinfo(argv[1], int(argv[2]), AF_UNSPEC, SOCK_STREAM):
 
     try:
         s = socket(af, socktype, proto)
-    except OSError as msg:
+    except:
         s = None
         continue
 
     try:
         s.connect(sockaddr)
-    except OSError as msg:
+    except:
         s.close()
         s = None
         continue
