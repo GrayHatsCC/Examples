@@ -1,0 +1,29 @@
+GRAYHATS EXAMPLES
+=================
+
+This repository is made up of all the content that you may see in a meeting.
+
+That is, if we remember to put it up here. :-)
+
+Included are:
+
+1. Networking
+
+   This lecture was about basic networking topics, like the ISO Model, TCP, and
+   UDP. It also made heavy usage of Wireshark to visually see the packets being
+   sent over the network.
+
+   /code/networking/*
+   /presentations/networking.pdf
+
+2. Metasploit
+
+   This lecture was about basic penetration testing with Metasploit. We made
+   use of vulnerable Windows 7 boxes and hacked them with EternalBlue.
+
+   /presentations/metasploit.pdf
+
+TODO: Do more presentations and add them here!
+
+All content in this repository, unless stated otherwise, is released under the
+ISC license. See the LICENSE file for more details.
