@@ -9,7 +9,7 @@ Included are:
 
 1. Networking
 
-   This lecture was about basic networking topics, like the ISO Model, TCP, and
+   This lecture was about basic networking topics, like the OSI Model, TCP, and
    UDP. It also made heavy usage of Wireshark to visually see the packets being
    sent over the network.
 
