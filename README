@@ -23,7 +23,7 @@ Included are:
 
    /presentations/metasploit.pdf
 
-3. Netowkr Recon
+3. Network Recon
 
    This lecture was about how to find nodes on the network you are on with
    nmap. We got a diverse group of boxes and used nmap to figure out what was
