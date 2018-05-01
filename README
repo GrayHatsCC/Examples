@@ -7,14 +7,14 @@ That is, if we remember to put it up here. :-)
 
 Included are:
 
-1. Networking
+1. Networking and Wireshark
 
    This lecture was about basic networking topics, like the OSI Model, TCP, and
    UDP. It also made heavy usage of Wireshark to visually see the packets being
    sent over the network.
 
    /code/networking/*
-   /presentations/networking.pdf
+   /presentations/wireshark.pdf
 
 2. Metasploit
 
@@ -30,6 +30,14 @@ Included are:
    running on them without logging into them.
 
    /presentations/networkrecon.pdf
+
+4. XSS
+
+   This lecture was about problems in public facing web sites with HTML,
+   JavaScript, and SQL. We also learned how to exploit these problems to our
+   advantage.
+   
+   /presentations/xss.pdf
 
 TODO: Do more presentations and add them here!
 
